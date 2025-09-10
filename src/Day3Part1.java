@@ -26,15 +26,13 @@ public class Day3Part1 {
         for (int line = 0; line < symbols.size(); line++) {
             List<Integer> lineSymbols = symbols.get(line);
 
-            for (int position = 0; position < lineSymbols.size(); position++) {
-                int symbolIndex = lineSymbols.get(position);
-
+            for (int symbolIndex : lineSymbols) {
                 for (Number number : numbers) {
                     if (number.used) continue;
-                    if (number.line == line || number.line == line-1 || number.line == line+1) {
+                    if (number.line == line || number.line == line - 1 || number.line == line + 1) {
                         if (number.positions.contains(symbolIndex) ||
-                                number.positions.contains(symbolIndex -1) ||
-                                number.positions.contains(symbolIndex +1)) {
+                                number.positions.contains(symbolIndex - 1) ||
+                                number.positions.contains(symbolIndex + 1)) {
                             sum += number.value;
                             number.used = true;
                         }

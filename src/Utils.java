@@ -47,4 +47,40 @@ public class Utils {
         }
         return digits;
     }
+
+    public static String replaceUsingDict(String string, String[] dictSource, String[] dictTarget) {
+        char[] input = string.toCharArray();
+        StringBuilder result = new StringBuilder();
+
+        // On parcourt l'input
+        for (int inputIndex = 0; inputIndex < input.length; inputIndex++) {
+            boolean found = false;
+
+            // On parcourt le dictionnaire
+            for (int dictIndex = 0; dictIndex < dictSource.length && !found; dictIndex++) {
+                char[] word = dictSource[dictIndex].toCharArray();
+
+                //On vérifie que le mot du dictionnaire n'est pas trop long
+                if (inputIndex + word.length <= string.length()) {
+
+                    //On parcourt les caractères du mot du dictionnaire
+                    boolean corresponding = true;
+                    for (int wordIndex = 0; wordIndex < word.length && corresponding; wordIndex++) {
+
+                        // On vérifie la correspondance du mot du dictionnaire à la chaine de caractères
+                        if (input[inputIndex + wordIndex] != word[wordIndex])
+                            corresponding = false;
+                    }
+                    // Si correspondance, on ajoute le mot du dictTarget au résultat
+                    if (corresponding) {
+                        result.append(dictTarget[dictIndex]);
+                        found = true;
+                    }
+                }
+            }
+
+            if (!found) result.append(input[inputIndex]);
+        }
+        return result.toString();
+    }
 }

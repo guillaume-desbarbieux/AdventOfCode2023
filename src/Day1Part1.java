@@ -25,7 +25,7 @@ public class Day1Part1 {
 
     public static int getLineCode(String line) {
         System.out.println(line);
-        List<Integer> digits = new ArrayList<Integer>();
+        List<Integer> digits = new ArrayList<>();
         for (int i = 0; i < line.length(); i++) {
             if (Character.isDigit(line.charAt(i)))
                 digits.add(Character.getNumericValue(line.charAt(i)));

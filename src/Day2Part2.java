@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Day2Part2 {
     public static void main(String[] args) {
-        List<Game> games = readFile("gameCube.txt");
+        List<Game> games = readFile("ressources/gameCube.txt");
 
         int sumPower = 0;
         for (Game game : games) {

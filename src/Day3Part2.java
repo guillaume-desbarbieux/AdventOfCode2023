@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Day3Part2 {
     public static void main(String[] args) {
-        List<String> lines = readFile("Engine.txt");
+        List<String> lines = readFile("ressources/Engine.txt");
         List<List<Integer>> starSymbols = new ArrayList<>();
         List<Number> numbers = new ArrayList<>();
 

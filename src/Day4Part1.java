@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Day4Part1 {
     public static void main(String[] args) {
-        List<String> lines = readFile("ScratchCards.txt");
+        List<String> lines = readFile("ressources/ScratchCards.txt");
         List<Card> cards = new ArrayList<>();
 
         for (String line : lines) {

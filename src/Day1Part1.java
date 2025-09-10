@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Day1Part1 {
     public static void main(String[] args) {
-        System.out.println(getCalibration("calibration.txt"));
+        System.out.println(getCalibration("ressources/calibration.txt"));
     }
 
     public static int getCalibration(String path)  {

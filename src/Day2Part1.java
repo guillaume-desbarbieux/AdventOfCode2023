@@ -49,18 +49,18 @@ public class Day2Part1 {
 
         List<String> Sets = new ArrayList<>();
 
-        for (int inputIndex = 0; inputIndex < input.length; inputIndex++) {
-            if (input[inputIndex] == ':')
+        for (char c : input) {
+            if (c == ':')
                 foundGameId = true;
 
-            if (input[inputIndex] == ';')
+            if (c == ';')
                 foundSet = true;
 
             if (!foundGameId)
-                gameId.append(input[inputIndex]);
+                gameId.append(c);
 
             if (foundGameId && !foundSet)
-                currentSet.append(input[inputIndex]);
+                currentSet.append(c);
 
             if (foundSet) {
                 Sets.add(currentSet.toString());
@@ -70,7 +70,7 @@ public class Day2Part1 {
 
         }
 
-        if (currentSet.length() > 0)
+        if (!currentSet.isEmpty())
             Sets.add(currentSet.toString());
 
         Game game = new Game();
@@ -101,14 +101,14 @@ public class Day2Part1 {
         StringBuilder currentNumber = new StringBuilder();
         StringBuilder currentColor = new StringBuilder();
 
-        for (int inputIndex = 0; inputIndex < input.length; inputIndex++) {
-            if (Character.isDigit(input[inputIndex]))
-                currentNumber.append(input[inputIndex]);
+        for (char c : input) {
+            if (Character.isDigit(c))
+                currentNumber.append(c);
 
-            if (Character.isAlphabetic(input[inputIndex]))
-                currentColor.append(input[inputIndex]);
+            if (Character.isAlphabetic(c))
+                currentColor.append(c);
 
-            if (input[inputIndex] == ',') {
+            if (c == ',') {
                 String color = currentColor.toString();
                 String number = currentNumber.toString();
                 if (Utils.compareStrings(color, "red")) {

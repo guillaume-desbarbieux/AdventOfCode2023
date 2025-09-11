@@ -1,6 +1,3 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,7 +75,7 @@ public class Day2Part1 {
 
         Game game = new Game();
 
-        game.id = Utils.getNumbersFromString(gameId.toString()).get(0).intValue();
+        game.id = Utils.getIntFromString(gameId.toString());
         game.red = 0;
         game.green = 0;
         game.blue = 0;
@@ -102,75 +99,32 @@ public class Day2Part1 {
         char[] input = line.toCharArray();
 
         StringBuilder currentNumber = new StringBuilder();
-        List<Character> currentColor = new ArrayList<>();
+        StringBuilder currentColor = new StringBuilder();
 
         for (int inputIndex = 0; inputIndex < input.length; inputIndex++) {
-        if (Character.isDigit(input[inputIndex]))
-            currentNumber.append(input[inputIndex]);
+            if (Character.isDigit(input[inputIndex]))
+                currentNumber.append(input[inputIndex]);
 
-        if (Character.isAlphabetic(input[inputIndex]))
-            currentColor.add(input[inputIndex]);
+            if (Character.isAlphabetic(input[inputIndex]))
+                currentColor.append(input[inputIndex]);
 
-        if (input[inputIndex] == ',') {
-            if (...){
-                set.red = Utils.getNumbersFromString(currentNumber.toString()).get(0).intValue();
+            if (input[inputIndex] == ',') {
+                String color = currentColor.toString();
+                String number = currentNumber.toString();
+                if (Utils.compareStrings(color, "red")) {
+                    set.red = Utils.getIntFromString(number);
+                }
+                if (Utils.compareStrings(color, "green")) {
+                    set.green = Utils.getIntFromString(number);
+                }
+                if (Utils.compareStrings(color, "blue")) {
+                    set.blue = Utils.getIntFromString(number);
+                }
+                currentNumber = new StringBuilder();
+                currentColor = new StringBuilder();
             }
-            if (...){
-                set.green = Utils.getNumbersFromString(currentNumber.toString()).get(0).intValue();
-            }
-            if (...){
-                set.blue = Utils.getNumbersFromString(currentNumber.toString()).get(0).intValue();
-            }
-            currentNumber = new StringBuilder();
-            currentColor = new ArrayList<>();
         }
+
         return set;
     }
-
-
-
-
-
-
-
-
-            if (input[inputIndex] == ':') {
-                inputIndex++;
-                break;
-            }
-        }
-        
-
-
-        }
-
-
-        String[] splitId = line.split(":");
-
-        game.id = Integer.parseInt(splitId[0].substring(5));
-
-        String[] splitSets = splitId[1].split(";");
-
-        for (String set : splitSets) {
-            String[] splitColors = set.split(",");
-            for (String color : splitColors) {
-                color = color.trim();
-
-                String[] parts = color.split(" ");
-                int count = Integer.parseInt(parts[0]);
-
-                if ("red".equals(parts[1])) {
-                    if (game.red < count) game.red = count;
-                } else if ("green".equals(parts[1])) {
-                    if (game.green < count) game.green = count;
-                } else if ("blue".equals(parts[1])) {
-                    if (game.blue < count) game.blue = count;
-                }
-            }
-        }
-
-
-        return game;
-    }
 }
-

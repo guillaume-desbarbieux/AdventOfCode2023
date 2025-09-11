@@ -21,6 +21,7 @@ public class Utils {
 
 
     public static List<Long> getNumbersFromString(String string) {
+        if (string.isEmpty()) return new ArrayList<>();
         List<Long> numbers = new ArrayList<>();
         long number = 0;
         boolean foundNumber = false;
@@ -36,7 +37,13 @@ public class Utils {
                 }
             }
         }
+        if (foundNumber) numbers.add(number);
         return numbers;
+    }
+
+    public static int getIntFromString(String string) {
+        if (string.isEmpty()) return 0;
+        return getNumbersFromString(string).get(0).intValue();
     }
 
     public static List<Integer> getDigitsFromString(String string) {
@@ -82,5 +89,13 @@ public class Utils {
             if (!found) result.append(input[inputIndex]);
         }
         return result.toString();
+    }
+
+    public static boolean compareStrings(String s1, String s2) {
+        if (s1.length() != s2.length()) return false;
+        for (int i = 0; i < s1.length(); i++) {
+            if (s1.charAt(i) != s2.charAt(i)) return false;
+        }
+        return true;
     }
 }

@@ -109,23 +109,16 @@ public class Day2Part1 {
                 currentColor.append(c);
 
             if (c == ',') {
-                String color = currentColor.toString();
-                String number = currentNumber.toString();
-                if (Utils.compareStrings(color, "red")) {
-                    set.red = Utils.getIntFromString(number);
-                }
-                if (Utils.compareStrings(color, "green")) {
-                    set.green = Utils.getIntFromString(number);
-                }
-                if (Utils.compareStrings(color, "blue")) {
-                    set.blue = Utils.getIntFromString(number);
-                }
+                saveSet(set, currentColor.toString(), currentNumber.toString());
                 currentNumber = new StringBuilder();
                 currentColor = new StringBuilder();
             }
         }
-        String color = currentColor.toString();
-        String number = currentNumber.toString();
+        saveSet(set, currentColor.toString(), currentNumber.toString());
+        return set;
+    }
+
+    public static void saveSet(Set set, String color, String number) {
         if (Utils.compareStrings(color, "red")) {
             set.red = Utils.getIntFromString(number);
         }
@@ -135,10 +128,5 @@ public class Day2Part1 {
         if (Utils.compareStrings(color, "blue")) {
             set.blue = Utils.getIntFromString(number);
         }
-        currentNumber = new StringBuilder();
-        currentColor = new StringBuilder();
-
-
-        return set;
     }
 }

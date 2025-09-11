@@ -3,6 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Utils {
 
@@ -102,6 +103,13 @@ public class Utils {
     public static boolean contains(List<Integer> list, int number){
         for (int i : list) {
             if (i == number) return true;
+        }
+        return false;
+    }
+
+    public static boolean contains(List<Long> list, Long number){
+        for (Long i : list) {
+            if (Objects.equals(i, number)) return true;
         }
         return false;
     }

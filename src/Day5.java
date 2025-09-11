@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Day5Part1 {
+public class Day5 {
 
     public static void main(String[] args) {
         List<String> lines = Utils.readFile("ressources/seed.txt");

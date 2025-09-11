@@ -8,14 +8,18 @@ public class Day6 {
         int margin = race1.chancesToWin * race2.chancesToWin * race3.chancesToWin * race4.chancesToWin;
         System.out.println(margin);
 
+        new Race(7,9).getSolution();
+
+        Race race5 = new Race(40929790, 215106415051100);
+
     }
 
     public static class Race {
         int time;
-        int record;
+        long record;
         int chancesToWin;
 
-        public Race(int time, int record) {
+        public Race(int time, long record) {
             this.time = time;
             this.record = record;
             this.chancesToWin = getChancesToWin();
@@ -30,5 +34,13 @@ public class Day6 {
             return counter;
         }
 
+        public void getSolution() {
+            long delta = (long) time * time + 4*record;
+            double sqrt = Math.sqrt(delta);
+            double x1 = (time - sqrt) / 2;
+            double x2 = (time + sqrt) / 2;
+
+            System.out.println(x1 + " " + x2);
+        }
     }
 }

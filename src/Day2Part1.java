@@ -41,15 +41,94 @@ public class Day2Part1 {
     }
 
     public static Game getGameFromString(String line) {
-        Game game = new Game();
-        char[] input = line.toCharArray();
-        
-        String gameId = "";
-        List<Set> gameSets = new ArrayList<>();
 
+        char[] input = line.toCharArray();
+
+        StringBuilder gameId = new StringBuilder();
+        boolean foundGameId = false;
+
+        StringBuilder currentSet = new StringBuilder();
+        boolean foundSet = false;
+
+        List<String> Sets = new ArrayList<>();
 
         for (int inputIndex = 0; inputIndex < input.length; inputIndex++) {
-            if
+            if (input[inputIndex] == ':')
+                foundGameId = true;
+
+            if (input[inputIndex] == ';')
+                foundSet = true;
+
+            if (!foundGameId)
+                gameId.append(input[inputIndex]);
+
+            if (foundGameId && !foundSet)
+                currentSet.append(input[inputIndex]);
+
+            if (foundSet) {
+                Sets.add(currentSet.toString());
+                currentSet = new StringBuilder();
+                foundSet = false;
+            }
+
+        }
+
+        if (currentSet.length() > 0)
+            Sets.add(currentSet.toString());
+
+        Game game = new Game();
+
+        game.id = Utils.getNumbersFromString(gameId.toString()).get(0).intValue();
+        game.red = 0;
+        game.green = 0;
+        game.blue = 0;
+
+        for (String set : Sets) {
+            Set newSet = getSetFromString(set);
+            if (newSet.red > game.red) game.red = newSet.red;
+            if (newSet.green > game.green) game.green = newSet.green;
+            if (newSet.blue > game.blue) game.blue = newSet.blue;
+        }
+
+        return game;
+    }
+
+    public static Set getSetFromString(String line) {
+        Set set = new Set();
+        set.red = 0;
+        set.green = 0;
+        set.blue = 0;
+
+        char[] input = line.toCharArray();
+
+        StringBuilder currentNumber = new StringBuilder();
+        List<Character> currentColor = new ArrayList<>();
+
+        for (int inputIndex = 0; inputIndex < input.length; inputIndex++) {
+        if (Character.isDigit(input[inputIndex]))
+            currentNumber.append(input[inputIndex]);
+
+        if (Character.isAlphabetic(input[inputIndex]))
+            currentColor.add(input[inputIndex]);
+
+        if (input[inputIndex] == ',') {
+            if (...){
+                set.red = Utils.getNumbersFromString(currentNumber.toString()).get(0).intValue();
+            }
+            if (...){
+                set.green = Utils.getNumbersFromString(currentNumber.toString()).get(0).intValue();
+            }
+            if (...){
+                set.blue = Utils.getNumbersFromString(currentNumber.toString()).get(0).intValue();
+            }
+            currentNumber = new StringBuilder();
+            currentColor = new ArrayList<>();
+        }
+        return set;
+    }
+
+
+
 
 
 

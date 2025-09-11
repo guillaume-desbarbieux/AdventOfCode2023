@@ -80,8 +80,8 @@ public class Day2Part1 {
         game.green = 0;
         game.blue = 0;
 
-        for (String set : Sets) {
-            Set newSet = getSetFromString(set);
+        for (String stringSet : Sets) {
+            Set newSet = getSetFromString(stringSet);
             if (newSet.red > game.red) game.red = newSet.red;
             if (newSet.green > game.green) game.green = newSet.green;
             if (newSet.blue > game.blue) game.blue = newSet.blue;
@@ -124,6 +124,20 @@ public class Day2Part1 {
                 currentColor = new StringBuilder();
             }
         }
+        String color = currentColor.toString();
+        String number = currentNumber.toString();
+        if (Utils.compareStrings(color, "red")) {
+            set.red = Utils.getIntFromString(number);
+        }
+        if (Utils.compareStrings(color, "green")) {
+            set.green = Utils.getIntFromString(number);
+        }
+        if (Utils.compareStrings(color, "blue")) {
+            set.blue = Utils.getIntFromString(number);
+        }
+        currentNumber = new StringBuilder();
+        currentColor = new StringBuilder();
+
 
         return set;
     }

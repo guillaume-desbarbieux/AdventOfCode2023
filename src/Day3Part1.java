@@ -1,12 +1,11 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Day3Part1 {
     public static void main(String[] args) {
-        List<String> lines = readFile("ressources/Engine.txt");
+        List<String> lines = Utils.readFile("ressources/Engine.txt");
+
+
         List<List<Integer>> symbols = new ArrayList<>();
         List<Number> numbers = new ArrayList<>();
 
@@ -17,22 +16,21 @@ public class Day3Part1 {
             for (Number number : numbersLine) {
                 number.line = index;
                 numbers.add(number);
-               // System.out.println("Line " + number.line + " : " + number.value + " : " + number.positions);
             }
             index++;
         }
 
         int sum = 0;
-        for (int line = 0; line < symbols.size(); line++) {
-            List<Integer> lineSymbols = symbols.get(line);
+        for (int lineNumber = 0; lineNumber < symbols.size(); lineNumber++) {
+            List<Integer> lineSymbols = symbols.get(lineNumber);
 
             for (int symbolIndex : lineSymbols) {
                 for (Number number : numbers) {
                     if (number.used) continue;
-                    if (number.line == line || number.line == line - 1 || number.line == line + 1) {
+                    if (number.line == lineNumber || number.line == lineNumber - 1 || number.line == lineNumber + 1) {
                         if (number.positions.contains(symbolIndex) ||
-                                number.positions.contains(symbolIndex - 1) ||
-                                number.positions.contains(symbolIndex + 1)) {
+                                number.positionsContains(symbolIndex - 1) ||
+                                number.positionsContains(symbolIndex + 1)) {
                             sum += number.value;
                             number.used = true;
                         }
@@ -54,19 +52,10 @@ public class Day3Part1 {
             this.positions = positions;
             this.used = false;
         }
-    }
 
-    public static List<String> readFile(String path)  {
-    List<String> lines = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-               lines.add(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        public boolean positionsContains(int number) {
+            return Utils.contains(positions, number);
         }
-    return lines;
     }
 
     public static List<Integer> getLineSymbol(String line) {

@@ -98,4 +98,11 @@ public class Utils {
         }
         return true;
     }
+
+    public static boolean contains(List<Integer> list, int number){
+        for (int i : list) {
+            if (i == number) return true;
+        }
+        return false;
+    }
 }

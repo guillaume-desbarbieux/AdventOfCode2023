@@ -106,6 +106,13 @@ public class Utils {
         return false;
     }
 
+    public static boolean contains(String string, char character){
+        for (char c : string.toCharArray()) {
+            if (c == character) return true;
+        }
+        return false;
+    }
+
     public static List<String> split(String string, char separator){
         List<String> result = new ArrayList<>();
         StringBuilder current = new StringBuilder();

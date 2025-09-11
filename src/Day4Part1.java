@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Day4Part1 {
     public static void main(String[] args) {
-        List<String> lines = readFile("ressources/ScratchCards.txt");
+        List<String> lines = Utils.readFile("ressources/ScratchCards.txt");
         List<Card> cards = new ArrayList<>();
 
         for (String line : lines) {
@@ -36,44 +36,29 @@ public class Day4Part1 {
 
         public void checkNumbers() {
             for (Integer number : numbers) {
-                if (winningNumbers.contains(number))
+                if (Utils.contains(winningNumbers, number))
                     this.goodNumbers.add(number);
             }
         }
     }
 
     public static Card getCardFromLine(String line) {
-        String trimmedLine = line.trim();
-        if (trimmedLine.isEmpty()) return null;
-        String[] splitId = line.split(":");
+        if (line.isEmpty()) return null;
+        List<String> splitId = Utils.split(line, ':');
+        List<String> splitWinnings = Utils.split(splitId.get(1), '|');
 
-        String[] splitWinnings = splitId[1].split("\\|");
-        List<Integer> winningNumbers = getNumbersFromString(splitWinnings[0]);
-        List<Integer> numbers = getNumbersFromString(splitWinnings[1]);
+        List<Integer> winningNumbers = getNumbersFromString(splitWinnings.get(0));
+        List<Integer> numbers = getNumbersFromString(splitWinnings.get(1));
         return new Card(winningNumbers, numbers);
     }
 
     public static List<Integer> getNumbersFromString(String string) {
         List<Integer> numbers = new ArrayList<>();
-        for (String number : string.split(" ")) {
+        for (String number : Utils.split(string, ' ')) {
             if (!number.isEmpty())
                 numbers.add(Integer.parseInt(number));
         }
         return numbers;
     }
-
-    public static List<String> readFile(String path)  {
-    List<String> lines = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-               lines.add(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    return lines;
-    }
-
 
 }

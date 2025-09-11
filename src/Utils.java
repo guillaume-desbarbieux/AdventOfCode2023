@@ -105,4 +105,19 @@ public class Utils {
         }
         return false;
     }
+
+    public static List<String> split(String string, char separator){
+        List<String> result = new ArrayList<>();
+        StringBuilder current = new StringBuilder();
+        for (char c : string.toCharArray()) {
+            if (c == separator) {
+                result.add(current.toString());
+                current = new StringBuilder();
+            } else {
+                current.append(c);
+            }
+        }
+        result.add(current.toString());
+        return result;
+    }
 }

@@ -21,10 +21,13 @@ public class Day4Part1 {
     }
 
     public static class Card {
+        int id;
         List<Integer> winningNumbers;
         List<Integer> numbers;
         List<Integer> goodNumbers;
         int points;
+        int numberOfCopies;
+        int MAX_ID = 0;
 
         public Card(List<Integer> winningNumbers, List<Integer> numbers) {
             this.winningNumbers = winningNumbers;
@@ -32,6 +35,16 @@ public class Day4Part1 {
             this.goodNumbers = new ArrayList<>();
             checkNumbers();
             this.points = (int) Math.pow(2,goodNumbers.size()-1);
+            this.numberOfCopies = 1;
+        }
+
+        public Card(int id, List<Integer> winningNumbers, List<Integer> numbers) {
+            this.id = id;
+            this.winningNumbers = winningNumbers;
+            this.numbers = numbers;
+            this.goodNumbers = new ArrayList<>();
+            checkNumbers();
+            this.numberOfCopies = 1;
         }
 
         public void checkNumbers() {
@@ -39,6 +52,15 @@ public class Day4Part1 {
                 if (Utils.contains(winningNumbers, number))
                     this.goodNumbers.add(number);
             }
+        }
+
+        public List<Integer> getIdsToCopy() {
+            List<Integer> ids = new ArrayList<>();
+            for (int i = 1; i <= goodNumbers.size(); i++) {
+                if (id + i > MAX_ID) break;
+                ids.add(id + i);
+            }
+            return ids;
         }
     }
 

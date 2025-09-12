@@ -1,35 +1,36 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Day7 {
 
     public static void main(String[] args) {
         List<String> lines = Utils.readFile("ressources/camelCards.txt");
-        char[] cards = {'A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2'};
 
-        List<List<String>> strengthHands = new ArrayList<>();
+        List<String> hands = new ArrayList<>();
+        List<Integer> strengths = new ArrayList<>();
+        List<Integer> bids = new ArrayList<>();
+
         for (String line : lines) {
-            List<String> hand = Utils.split(line, ' ');
-            int strength = getStrength(hand.get(0).toCharArray());
-            int bid = Utils.getIntFromString(hand.get(1));
+            List<String> splitLine = Utils.split(line, ' ');
 
+            hands.add(splitLine.get(0));
+            strengths.add(getStrength(splitLine.get(0)));
+            bids.add(Utils.getIntFromString(splitLine.get(1)));
 
+            System.out.println(hands.get(hands.size() - 1) + " " + strengths.get(strengths.size() - 1) + " " + bids.get(bids.size() - 1));
         }
 
     }
 
-    public static int getStrength(char[] hand) {
-        System.out.println("For hand : " + new String(hand));
+    public static int getStrength(String stringHand) {
+        char[] hand = stringHand.toCharArray();
         char[] cards = {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'};
-        int[] orderedHand = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        int[] groupedHand = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
         for (char card : hand) {
             int index = Utils.indexOf(card, cards);
-            System.out.println(card + " : " + index);
-            if (index != -1) orderedHand[index]++;
+            if (index != -1) groupedHand[index]++;
         }
-
-        System.out.println(Arrays.toString(orderedHand));
-        return 0;
+        return Utils.sumOfSquare(groupedHand);
     }
 }

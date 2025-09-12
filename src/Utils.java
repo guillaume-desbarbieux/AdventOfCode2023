@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class Utils {
 
-    public static List<String> readFile(String path)  {
+    public static List<String> readFile(String path) {
         List<String> lines = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line;
@@ -31,7 +31,7 @@ public class Utils {
                 foundNumber = true;
                 number = number * 10 + Character.getNumericValue(c);
             } else {
-                if (foundNumber){
+                if (foundNumber) {
                     numbers.add(number);
                     foundNumber = false;
                     number = 0;
@@ -100,28 +100,28 @@ public class Utils {
         return true;
     }
 
-    public static boolean contains(List<Integer> list, int number){
+    public static boolean contains(List<Integer> list, int number) {
         for (int i : list) {
             if (i == number) return true;
         }
         return false;
     }
 
-    public static boolean contains(List<Long> list, Long number){
+    public static boolean contains(List<Long> list, Long number) {
         for (Long i : list) {
             if (Objects.equals(i, number)) return true;
         }
         return false;
     }
 
-    public static boolean contains(String string, char character){
+    public static boolean contains(String string, char character) {
         for (char c : string.toCharArray()) {
             if (c == character) return true;
         }
         return false;
     }
 
-    public static List<String> split(String string, char separator){
+    public static List<String> split(String string, char separator) {
         List<String> result = new ArrayList<>();
         StringBuilder current = new StringBuilder();
         for (char c : string.toCharArray()) {
@@ -141,5 +141,49 @@ public class Utils {
             if (array[i] == c) return i;
         }
         return -1;
+    }
+
+    public static int[] sortArrayAsc(int[] array) {
+        for (int i = 0; i < array.length - 1; i++) {
+            int min = array[i];
+            int minIndex = i;
+            for (int j = i + 1; j < array.length; j++) {
+                if (array[j] < min) {
+                    min = array[j];
+                    minIndex = j;
+                }
+            }
+            if (minIndex != i) {
+                array[minIndex] = array[i];
+                array[i] = min;
+            }
+        }
+        return array;
+    }
+
+    public static int[] sortArrayDesc(int[] array) {
+        for (int i = 0; i < array.length - 1; i++) {
+            int max = array[i];
+            int maxIndex = i;
+            for (int j = i + 1; j < array.length; j++) {
+                if (array[j] > max) {
+                    max = array[j];
+                    maxIndex = j;
+                }
+            }
+            if (maxIndex != i) {
+                array[maxIndex] = array[i];
+                array[i] = max;
+            }
+        }
+        return array;
+    }
+
+    public static int sumOfSquare(int[] groupedHand) {
+        int sum = 0;
+        for (int i : groupedHand) {
+            sum += i * i;
+        }
+        return sum;
     }
 }

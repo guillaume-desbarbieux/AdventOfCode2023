@@ -10,15 +10,33 @@ public class Day7 {
         List<Integer> strengths = new ArrayList<>();
         List<Integer> bids = new ArrayList<>();
 
-        for (String line : lines) {
-            List<String> splitLine = Utils.split(line, ' ');
+        List<String> FiveOfAKind = new ArrayList<>();
+        List<String> FourOfAKind = new ArrayList<>();
+        List<String> FullHouse = new ArrayList<>();
+        List<String> ThreeOfAKind = new ArrayList<>();
+        List<String> TwoPair = new ArrayList<>();
+        List<String> OnePair = new ArrayList<>();
+        List<String> HighCard = new ArrayList<>();
 
-            hands.add(splitLine.get(0));
-            strengths.add(getStrength(splitLine.get(0)));
-            bids.add(Utils.getIntFromString(splitLine.get(1)));
+        for (String hand : lines) {
 
-            System.out.println(hands.get(hands.size() - 1) + " " + strengths.get(strengths.size() - 1) + " " + bids.get(bids.size() - 1));
+            int strength = getStrength(Utils.split(hand, ' ').get(0));
+            switch (strength) {
+                case 5 -> HighCard.add(hand);
+                case 7 -> OnePair.add(hand);
+                case 9 -> TwoPair.add(hand);
+                case 11 -> ThreeOfAKind.add(hand);
+                case 13 -> FullHouse.add(hand);
+                case 17 -> FourOfAKind.add(hand);
+                case 25 -> FiveOfAKind.add(hand);
+            }
+
+
+
         }
+
+        //sorting by strength
+
 
     }
 

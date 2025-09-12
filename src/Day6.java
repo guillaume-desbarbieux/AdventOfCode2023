@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Day6 {
 
     public static void main(String[] args) {
@@ -33,4 +35,14 @@ public class Day6 {
             return counter;
         }
     }
+
+    public class Day7 {
+
+        public static void main(String[] args) {
+            List<String> lines = Utils.readFile("ressources/camelCards.txt");
+            for (String line : lines) {
+                System.out.println(line);
+                }
+            }
+        }
 }

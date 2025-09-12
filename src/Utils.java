@@ -135,4 +135,11 @@ public class Utils {
         result.add(current.toString());
         return result;
     }
+
+    public static int indexOf(char c, char[] array) {
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == c) return i;
+        }
+        return -1;
+    }
 }

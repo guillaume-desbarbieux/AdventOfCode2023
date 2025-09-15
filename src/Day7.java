@@ -52,36 +52,35 @@ public class Day7 {
         List<String> sortedHands = new ArrayList<>();
         char[] cards = {'2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'};
 
-        while (hands.size() > 0) {
+        while (hands.size() > 1) {
             List<Integer> minIndex = new ArrayList<>();
             int minStrength = cards.length;
 
             for (int charIndex = 0; charIndex < hands.get(0).length(); charIndex++) {
+
                 for (int handIndex = 0; handIndex < hands.size(); handIndex++) {
                     char[] hand = hands.get(handIndex).toCharArray();
-                        int strength = Utils.indexOf(hand[charIndex], cards);
-                        if (strength < minStrength) {
-                            minStrength = strength;
-                            minIndex = new ArrayList<>();
-                            minIndex.add(handIndex);
-                        } else if (strength == minStrength) {
-                            minIndex.add(handIndex);
-                        }
+                    int strength = Utils.indexOf(hand[charIndex], cards);
+                    if (strength < minStrength) {
+                        minStrength = strength;
+                        minIndex = new ArrayList<>();
+                        minIndex.add(handIndex);
+                    } else if (strength == minStrength) {
+                        minIndex.add(handIndex);
                     }
-                    if (minIndex.size() == 1) {
-                        sortedHands.add(hands.get(minIndex.get(0)));
-                        hands.remove(minIndex.get(0));
-                        continue;
-                    }
-
-
-
                 }
+
+                if (minIndex.size() == 1) {
+                    sortedHands.add(hands.get(minIndex.get(0)));
+                    hands.remove(minIndex.get(0));
+                }
+
+
             }
-
-
-
         }
-        return null;
+
+
     }
+        return null;
+}
 }

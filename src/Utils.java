@@ -21,8 +21,29 @@ public class Utils {
         return lines;
     }
 
+    public static List<Integer> getIntsFromString(String string) {
+        if (string.isEmpty()) return new ArrayList<>();
+        List<Integer> numbers = new ArrayList<>();
+        int number = 0;
+        boolean foundNumber = false;
+        for (char c : string.toCharArray()) {
+            if (Character.isDigit(c)) {
+                foundNumber = true;
+                number = number * 10 + Character.getNumericValue(c);
+            } else {
+                if (foundNumber) {
+                    numbers.add(number);
+                    foundNumber = false;
+                    number = 0;
+                }
+            }
+        }
+        if (foundNumber) numbers.add(number);
+        return numbers;
+    }
 
-    public static List<Long> getNumbersFromString(String string) {
+
+    public static List<Long> getLongsFromString(String string) {
         if (string.isEmpty()) return new ArrayList<>();
         List<Long> numbers = new ArrayList<>();
         long number = 0;
@@ -45,7 +66,7 @@ public class Utils {
 
     public static int getIntFromString(String string) {
         if (string.isEmpty()) return 0;
-        return getNumbersFromString(string).get(0).intValue();
+        return getLongsFromString(string).get(0).intValue();
     }
 
     public static List<Integer> getDigitsFromString(String string) {

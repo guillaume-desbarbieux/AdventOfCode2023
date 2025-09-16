@@ -6,7 +6,7 @@ public class Day5 {
     public static void main(String[] args) {
         List<String> lines = Utils.readFile("ressources/seed.txt");
 
-        List<Long> seeds = Utils.getNumbersFromString(lines.get(0));
+        List<Long> seeds = Utils.getLongsFromString(lines.get(0));
 
         List<List<Long>> map = new ArrayList<>();
         List<List<List<Long>>> maps = new ArrayList<>();
@@ -21,7 +21,7 @@ public class Day5 {
                         maps.add(map);
                         map = new ArrayList<>();
                     }
-                } else map.add(Utils.getNumbersFromString(line));
+                } else map.add(Utils.getLongsFromString(line));
             }
         }
         maps.add(map);

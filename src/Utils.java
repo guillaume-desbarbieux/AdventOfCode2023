@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -193,5 +194,18 @@ public class Utils {
             if (arr1[i]!= arr2[i]) return false;
         }
         return true;
+    }
+
+    public static BigInteger pgcd (BigInteger a, BigInteger b) {
+        while (!b.equals(BigInteger.ZERO)) {
+            BigInteger r = a.mod(b);
+            a = b;
+            b = r;
+        }
+        return a;
+    }
+
+    public static BigInteger ppcm (BigInteger a, BigInteger b){
+        return a.divide(pgcd(a,b)).multiply(b);
     }
 }

@@ -1,8 +1,3 @@
-import jdk.jshell.execution.Util;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class LeetCode {
 
     public static void main(String[] args) {
@@ -11,28 +6,32 @@ public class LeetCode {
 
 
     public static int lengthOfLongestSubstring(String s) {
-        char[] stringArray = s.toCharArray();
+        int n = s.length();
+        if (n == 0) return 0;
 
-        int max = 1;
+        int[] lastSeen = new int[Character.MAX_VALUE + 1];
 
-        for (int index = 0; index < stringArray.length - 1; index++) {
-            List<Character> longest = new ArrayList<>();
-            longest.add(stringArray[index]);
-
-            List<Character> subString = new ArrayList<>();
-            for (int i = index + 1; i < stringArray.length; i++) {
-                subString.add(stringArray[i]);
-            }
-            for (char c : subString) {
-                if (Utils.contains(longest.toString(), c))
-                    break;
-                else
-                    longest.add(c);
-            }
-
-            if (longest.size() > max)
-                max = longest.size();
+        for (int i = 0; i < lastSeen.length; i++) {
+            lastSeen[i] = -1;
         }
+
+        int left = 0;
+        int max = 0;
+
+        for (int right = 0; right < n; right++) {
+            char c = s.charAt(right);
+
+            if (lastSeen[c] >= left) {
+                // le caractère c est dans la fenêtre -> on décale left
+                max = right - left;
+                left = lastSeen[c] + 1;
+            }
+
+            lastSeen[c] = right; // on enregistre la dernière position de c
+
+            //max = Math.max(max, right - left + 1);
+        }
+        if (n - left > max) max = n - left;
         return max;
     }
 
@@ -44,9 +43,9 @@ public class LeetCode {
         // Appliquer quicksort
         quickSort(merged, 0, merged.length - 1);
 
-        if (merged.length %2 == 0)
-            return (double) (merged[merged.length / 2] + merged[merged.length / 2 - 1]) /2;
-        else return merged [merged.length/2];
+        if (merged.length % 2 == 0)
+            return (double) (merged[merged.length / 2] + merged[merged.length / 2 - 1]) / 2;
+        else return merged[merged.length / 2];
     }
 
     private void quickSort(int[] arr, int low, int high) {

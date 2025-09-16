@@ -1,22 +1,29 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Day9 {
     public static void main(String[] args) {
-        List<String> lines = Utils.readFile("ressources/mirageMaintenance.txt");
+        String path = "ressources/mirageMaintenance.txt";
+        part1(path);
+    }
+    public static void part1(String path) {
+        //System.out.println("test for {} " + isAllZero(new ArrayList<>()));
+        List<String> lines = Utils.readFile(path);
         long totalSum = 0;
         for (String line : lines) {
             List<Long> history = Utils.getLongsFromString(line);
-            System.out.println(history);
 
             long prediction = 0;
-            while(!isAllZero(history)){
+            while(!isAllZero(history) && history.size() > 1){
+                //System.out.println(history);
                 prediction += history.get(history.size()-1);
                 getListDifferences(history);
             }
-            System.out.println("->" + prediction);
+            //System.out.println(history);
+            //System.out.println("Prediction : " + prediction);
             totalSum += prediction;
         }
-        System.out.println(totalSum);
+        System.out.println("Sum : " + totalSum);
     }
 
     private static boolean isAllZero(List<Long> list) {

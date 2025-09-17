@@ -48,19 +48,29 @@ public class Utils {
         List<Long> numbers = new ArrayList<>();
         long number = 0;
         boolean foundNumber = false;
+        boolean foundMinus = false;
         for (char c : string.toCharArray()) {
-            if (Character.isDigit(c)) {
+            if (c == '-' && !foundNumber) {
+                foundMinus = true;
+            } else if (Character.isDigit(c)) {
                 foundNumber = true;
                 number = number * 10 + Character.getNumericValue(c);
             } else {
                 if (foundNumber) {
+                    if (foundMinus) number = -number;
+                    foundMinus = false;
                     numbers.add(number);
                     foundNumber = false;
                     number = 0;
+                } else if (foundMinus) {
+                    foundMinus = false;
                 }
             }
         }
-        if (foundNumber) numbers.add(number);
+        if (foundNumber) {
+            if (foundMinus) number = -number;
+            numbers.add(number);
+        }
         return numbers;
     }
 
@@ -211,13 +221,13 @@ public class Utils {
 
     public static boolean isSame(char[] arr1, char[] arr2) {
         if (arr1.length != arr2.length) return false;
-        for (int i = 0 ; i < arr1.length ; i++){
-            if (arr1[i]!= arr2[i]) return false;
+        for (int i = 0; i < arr1.length; i++) {
+            if (arr1[i] != arr2[i]) return false;
         }
         return true;
     }
 
-    public static BigInteger pgcd (BigInteger a, BigInteger b) {
+    public static BigInteger pgcd(BigInteger a, BigInteger b) {
         while (!b.equals(BigInteger.ZERO)) {
             BigInteger r = a.mod(b);
             a = b;
@@ -226,7 +236,7 @@ public class Utils {
         return a;
     }
 
-    public static BigInteger ppcm (BigInteger a, BigInteger b){
-        return a.divide(pgcd(a,b)).multiply(b);
+    public static BigInteger ppcm(BigInteger a, BigInteger b) {
+        return a.divide(pgcd(a, b)).multiply(b);
     }
 }

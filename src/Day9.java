@@ -14,11 +14,14 @@ public class Day9 {
             long firstPredictions = 0;
             List<Long> history = Utils.getLongsFromString(line);
 
+            int counter = 0;
             while(!isAllZero(history)){
                 lastPredictions += history.get(history.size()-1);
                 firstPredictions = history.get(0) - firstPredictions;
                 getListDifferences(history);
+                counter++;
             }
+            if (counter % 2 == 0) firstPredictions *= -1;
             sumLastPredictions += lastPredictions;
             sumFirstPredictions += firstPredictions;
         }

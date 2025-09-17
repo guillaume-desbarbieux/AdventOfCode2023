@@ -9,7 +9,7 @@ public class test {
     public static void main(String[] args) throws IOException {
         test test9= new test();
         test9.resolverParte1();
-        Day9.part1(pathFile);
+        Day9.part1();
 
     }
     public void resolverParte1() throws IOException {

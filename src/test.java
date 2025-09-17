@@ -28,9 +28,8 @@ public class test {
             {
                 LinkedList<Integer> lineInforme = new LinkedList<>();
                 String[] numerosHistorial = line.trim().split(" ");
-                for(int n=0; n<numerosHistorial.length;n++)
-                {
-                    lineInforme.add(Integer.parseInt(numerosHistorial[n]));
+                for (String s : numerosHistorial) {
+                    lineInforme.add(Integer.parseInt(s));
                 }
                 informe.add(lineInforme);
             }

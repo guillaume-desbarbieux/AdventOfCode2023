@@ -7,15 +7,23 @@ public class Day9 {
 
     public static void part1() {
         List<String> lines = Utils.readFile("ressources/mirageMaintenance.txt");
-        long totalSum = 0;
+        long sumLastPredictions = 0;
+        long sumFirstPredictions = 0;
         for (String line : lines) {
+            long lastPredictions = 0;
+            long firstPredictions = 0;
             List<Long> history = Utils.getLongsFromString(line);
+
             while(!isAllZero(history)){
-                totalSum += history.get(history.size()-1);
+                lastPredictions += history.get(history.size()-1);
+                firstPredictions = history.get(0) - firstPredictions;
                 getListDifferences(history);
             }
+            sumLastPredictions += lastPredictions;
+            sumFirstPredictions += firstPredictions;
         }
-        System.out.println("Sum : " + totalSum);
+        System.out.println("Sum Last: " + sumLastPredictions);
+        System.out.println("Sum First: " + sumFirstPredictions);
     }
 
     private static boolean isAllZero(List<Long> list) {

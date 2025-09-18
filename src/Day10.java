@@ -106,11 +106,10 @@ public class Day10 {
 
     private static int getInsideTiles(int[][] maze) {
         int counter = 0;
-        boolean inside = false;
         int lastCorner = 0;
         for (int[] line : maze) {
+            boolean inside = false;
             for (int pipe : line) {
-
                 switch (pipe) {
                     case 0:
                         System.out.print(" ");

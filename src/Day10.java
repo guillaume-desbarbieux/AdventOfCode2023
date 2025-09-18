@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.List;
 
 public class Day10 {
@@ -45,7 +46,7 @@ public class Day10 {
             if (c == '|' || c == 'L' || c == 'J') {
                 maze[iStart][jStart][foundNeigbours] = new int[]{iStart + 1, jStart};
                 foundNeigbours++;
-                codeForSChar +=4;
+                codeForSChar += 4;
             }
         }
         if (jStart > 0) {
@@ -53,7 +54,7 @@ public class Day10 {
             if (c == '-' || c == 'L' || c == 'F') {
                 maze[iStart][jStart][foundNeigbours] = new int[]{iStart, jStart - 1};
                 foundNeigbours++;
-                codeForSChar +=8;
+                codeForSChar += 8;
             }
         }
         if (jStart < largeur - 1) {
@@ -61,7 +62,7 @@ public class Day10 {
             if (c == '-' || c == 'J' || c == '7') {
                 maze[iStart][jStart][foundNeigbours] = new int[]{iStart, jStart + 1};
                 foundNeigbours++;
-                codeForSChar+=2;
+                codeForSChar += 2;
             }
         }
 
@@ -71,9 +72,9 @@ public class Day10 {
         int[] previous = current;
         int[] next;
 
-        int [][] clearedMaze = new int[hauteur][largeur];
-        for(int i = 0; i < hauteur; i++) {
-            for(int j = 0; j < largeur; j++) {
+        int[][] clearedMaze = new int[hauteur][largeur];
+        for (int i = 0; i < hauteur; i++) {
+            for (int j = 0; j < largeur; j++) {
                 clearedMaze[i][j] = 0;
             }
         }
@@ -92,6 +93,7 @@ public class Day10 {
                 case '|' -> clearedMaze[current[0]][current[1]] = 1;
                 case 'L', '7' -> clearedMaze[current[0]][current[1]] = 2;
                 case 'F', 'J' -> clearedMaze[current[0]][current[1]] = 3;
+                case '-' -> clearedMaze[current[0]][current[1]] = -1;
             }
             counter++;
         } while (current[0] != iStart || current[1] != jStart);
@@ -99,22 +101,51 @@ public class Day10 {
         System.out.println(getInsideTiles(clearedMaze));
 
 
-        return counter/2;
+        return counter / 2;
     }
 
     private static int getInsideTiles(int[][] maze) {
         int counter = 0;
         boolean inside = false;
         int lastCorner = 0;
-        for (int[] line : maze){
-            for (int pipe : line){
-                switch (pipe){
-                    case 0 -> if (inside) counter++;
-                    case 1 -> inside = !inside;
-                    case 2 ->
+        for (int[] line : maze) {
+            for (int pipe : line) {
+
+                switch (pipe) {
+                    case 0:
+                        System.out.print(" ");
+                        if (inside)
+                            counter++;
+                        break;
+                    case 1:
+                        System.out.print("|");
+                        inside = !inside;
+                        break;
+                    case 2:
+                        System.out.print("\\");
+                        if (lastCorner == 2) {
+                            inside = !inside;
+                            lastCorner = 0;
+                        } else
+                            lastCorner = 2;
+                        break;
+                    case 3:
+                        System.out.print("/");
+                        if (lastCorner == 3) {
+                            inside = !inside;
+                            lastCorner = 0;
+                        } else
+                            lastCorner = 3;
+                        break;
+                    case -1:
+                        System.out.print("-");
+                        break;
                 }
+
             }
+            System.out.println();
         }
+        return counter;
     }
 
     private static int[] getNext(int[][][][] maze, int[] current, int[] previous) {

@@ -9,7 +9,7 @@ public class Day10 {
     public static int part1(List<String> lines) {
         int hauteur = lines.size();
         int largeur = lines.get(0).length();
-        int[][][][] maze = new int[largeur][hauteur][2][2];
+        int[][][][] maze = new int[hauteur][largeur][2][2];
         int iStart = -1;
         int jStart = -1;
 
@@ -31,11 +31,13 @@ public class Day10 {
             }
         }
         int foundNeigbours = 0;
+        int codeForSChar = 0;
         if (iStart > 0) {
             char c = lines.get(iStart - 1).charAt(jStart);
             if (c == '|' || c == '7' || c == 'F') {
                 maze[iStart][jStart][foundNeigbours] = new int[]{iStart - 1, jStart};
                 foundNeigbours++;
+                codeForSChar++;
             }
         }
         if (iStart < hauteur - 1) {
@@ -43,6 +45,7 @@ public class Day10 {
             if (c == '|' || c == 'L' || c == 'J') {
                 maze[iStart][jStart][foundNeigbours] = new int[]{iStart + 1, jStart};
                 foundNeigbours++;
+                codeForSChar +=4;
             }
         }
         if (jStart > 0) {
@@ -50,39 +53,52 @@ public class Day10 {
             if (c == '-' || c == 'L' || c == 'F') {
                 maze[iStart][jStart][foundNeigbours] = new int[]{iStart, jStart - 1};
                 foundNeigbours++;
+                codeForSChar +=8;
             }
         }
         if (jStart < largeur - 1) {
             char c = lines.get(iStart).charAt(jStart + 1);
             if (c == '-' || c == 'J' || c == '7') {
                 maze[iStart][jStart][foundNeigbours] = new int[]{iStart, jStart + 1};
-                foundNeigbours++;}
+                foundNeigbours++;
+                codeForSChar+=2;
+            }
         }
+
 
         int counter = 0;
         int[] current = new int[]{iStart, jStart};
         int[] previous = current;
         int[] next;
 
-        char [][] clearedMaze = new char[hauteur][largeur];
+        int [][] clearedMaze = new int[hauteur][largeur];
         for(int i = 0; i < hauteur; i++) {
             for(int j = 0; j < largeur; j++) {
-                clearedMaze[i][j] = ' ';
+                clearedMaze[i][j] = 0;
             }
         }
 
-        clearedMaze[current[0]][current[1]] = lines.get(current[0]).charAt(current[1]);
+        switch (codeForSChar) {
+            case 5 -> clearedMaze[iStart][jStart] = 1;
+            case 3, 12 -> clearedMaze[iStart][jStart] = 2;
+            case 6, 9 -> clearedMaze[iStart][jStart] = 3;
+        }
+
         do {
             next = getNext(maze, current, previous);
             previous = current;
             current = next;
-            clearedMaze[current[0]][current[1]] = lines.get(current[0]).charAt(current[1]);
+            switch (lines.get(current[0]).charAt(current[1])) {
+                case '|' -> clearedMaze[current[0]][current[1]] = 1;
+                case 'L', '7' -> clearedMaze[current[0]][current[1]] = 2;
+                case 'F', 'J' -> clearedMaze[current[0]][current[1]] = 3;
+            }
             counter++;
         } while (current[0] != iStart || current[1] != jStart);
 
-        for (char[] line : clearedMaze) {
-            for (char c : line) {
-                System.out.print(c);
+        for (int[] line : clearedMaze) {
+            for (int i : line) {
+                System.out.print(i);
             }
             System.out.println();
         }

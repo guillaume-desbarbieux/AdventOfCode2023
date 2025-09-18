@@ -96,13 +96,25 @@ public class Day10 {
             counter++;
         } while (current[0] != iStart || current[1] != jStart);
 
-        for (int[] line : clearedMaze) {
-            for (int i : line) {
-                System.out.print(i);
-            }
-            System.out.println();
-        }
+        System.out.println(getInsideTiles(clearedMaze));
+
+
         return counter/2;
+    }
+
+    private static int getInsideTiles(int[][] maze) {
+        int counter = 0;
+        boolean inside = false;
+        int lastCorner = 0;
+        for (int[] line : maze){
+            for (int pipe : line){
+                switch (pipe){
+                    case 0 -> if (inside) counter++;
+                    case 1 -> inside = !inside;
+                    case 2 ->
+                }
+            }
+        }
     }
 
     private static int[] getNext(int[][][][] maze, int[] current, int[] previous) {

@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.List;
 
 public class Day10 {
@@ -61,7 +60,6 @@ public class Day10 {
             char c = lines.get(iStart).charAt(jStart + 1);
             if (c == '-' || c == 'J' || c == '7') {
                 maze[iStart][jStart][foundNeigbours] = new int[]{iStart, jStart + 1};
-                foundNeigbours++;
                 codeForSChar += 2;
             }
         }
